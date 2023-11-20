@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "author": "Anonymous maker",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-arduino-uno", "id": "uno", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-lcd1602", "id": "lcd1", "top": -188.57, "left": 25.6, "attrs": {} },
+    { "type": "wokwi-potentiometer", "id": "pot1", "top": 267.5, "left": 220.6, "attrs": {} }
+  ],
+  "connections": [
+    [ "lcd1:K", "uno:5V", "red", [ "v9.6", "h86.4", "v268.8", "h-128" ] ],
+    [ "lcd1:A", "uno:GND.3", "black", [ "v19.2", "h86.3", "v249.6", "h-99.4" ] ],
+    [ "lcd1:RS", "uno:12", "green", [ "v48", "h48.3" ] ],
+    [ "lcd1:VSS", "uno:GND.3", "black", [ "v38.4", "h-76.8", "v249.6", "h201.6" ] ],
+    [ "lcd1:VDD", "uno:5V", "red", [ "v48", "h-76.7", "v230.4", "h172.8" ] ],
+    [ "pot1:GND", "uno:GND.3", "black", [ "v28.8", "h-19.2" ] ],
+    [ "pot1:VCC", "uno:5V", "red", [ "v38.4", "h-96.8" ] ],
+    [ "pot1:SIG", "uno:A0", "green", [ "v19.2", "h-48.4" ] ],
+    [ "lcd1:RW", "uno:GND.3", "black", [ "v38.4", "h-115.3", "v249.6", "h201.6" ] ],
+    [ "lcd1:E", "uno:11", "green", [ "v48", "h38.4" ] ],
+    [ "lcd1:D4", "uno:10", "green", [ "v0" ] ],
+    [ "lcd1:D5", "uno:9", "green", [ "v0" ] ],
+    [ "lcd1:D6", "uno:8", "green", [ "v0" ] ],
+    [ "lcd1:D7", "uno:7", "green", [ "v48", "h9.9" ] ]
+  ],
+  "dependencies": {}
+}
