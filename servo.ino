@@ -1,16 +1,16 @@
 #include <Pin.hpp>
 #include <Servo.h>
 
-#define LEFT 14
-#define RIGHT 15
+#define LEFT 15
+#define RIGHT 14
 #define BOTTOM 16
 
 #define SERVOX 5
 #define SERVOY 6
 
 #define TRESHOLD 10
-#define DELAY 15
-#define INC 0.3
+#define DELAY 50
+#define INC 0.01
 
 AnalogPin photoLeft(LEFT, AnalogPin::Mode::Input);
 AnalogPin photoRigh(RIGHT, AnalogPin::Mode::Input);
@@ -38,28 +38,24 @@ void setup() {
 void loop() {
   valueLeft = photoLeft.read();
   valueRight = photoRigh.read();
-  valueBott = photoBott.read();
-  valueTop = (valueLeft + valueRight) / 2;
+  valueTop = photoBott.read();
+  valueBott = (valueLeft + valueRight) / 2 + 20;
 
-  Serial.print("Left: ");
-  Serial.print(valueLeft);
-  Serial.print("; Right: ");
-  Serial.print(valueRight);
-  Serial.print("; Bott: ");
-  Serial.print(valueBott);
-  Serial.print("; Topp: ");
-  Serial.print(valueTop);
-  Serial.print("\r\n");
+  //Serial.print("Left: ");
+  //Serial.print(valueLeft);
+  //Serial.print("; Right: ");
+  //Serial.print(valueRight);
+  //Serial.print("; Bott: ");
+  //Serial.print(valueBott);
+  //Serial.print("; Topp: ");
+  //Serial.print(valueTop);
+  //Serial.print("\r\n");
 
 
-  if (valueLeft > valueRight && valueLeft - valueRight > TRESHOLD)
-    servoXPos -= INC * (valueLeft - valueRight);
-  else if (valueRight > valueLeft && valueRight - valueLeft > TRESHOLD)
-    servoXPos += INC * (valueRight - valueLeft);
-  if (valueBott > valueTop && valueBott - valueTop > TRESHOLD)
-    servoYPos -= INC * (valueBott - valueTop);
-  else if (valueTop > valueBott && valueTop - valueBott > TRESHOLD)
-    servoYPos += INC * (valueTop - valueBott);
+  if (valueLeft != valueRight && abs(valueLeft - valueRight) > TRESHOLD)
+    servoXPos = (int)(servoXPos + INC * (valueLeft - valueRight)) + 0.5;
+  if (valueTop != valueBott && abs(valueTop - valueBott) > TRESHOLD / 2)
+    servoYPos = (int)(servoYPos - INC * (valueTop - valueBott)) + 0.5;
 
   if (servoYPos < 0)
     servoYPos = 0;
@@ -72,4 +68,6 @@ void loop() {
 
   servoX.write(servoXPos);
   servoY.write(servoYPos);
+
+  delay(DELAY);
 }
